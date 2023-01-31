@@ -1,0 +1,9 @@
+.products {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 10%;
+            width: 80%;
+        }
+.products_imge {
+    width: 200px;
+}
