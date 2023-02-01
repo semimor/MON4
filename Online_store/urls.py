@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Products.views import main_view, products_view, product_detail_view
+from Products.views import main_view, products_view, product_detail_view, create_product_view
 from Online_store.settings import MEDIA_ROOT, MEDIA_URL
 from django.conf.urls.static import static
 # from users.views import auth_view
@@ -25,7 +25,7 @@ urlpatterns = [
     path('', main_view),
     path('products/', products_view),
     path('products/<int:product_id>/', product_detail_view),
-    # path('products/create/', create_product_view),
+    path('products/create/', create_product_view),
 
 # """usres"""
 

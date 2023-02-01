@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from Products.models import Product, Review
-
+from Products.forms import ProductsCreateForm, ReviewCreateForm
 # Create your views here.
 
 def main_view(request):
@@ -29,7 +29,7 @@ def product_detail_view(request, product_id):
         context = {
             'product': product,
             'reviews': reviews,
-            # 'from': ReviewCreateForm
+            'from': ReviewCreateForm
         }
 
         return render(request, 'products/detail.html', context=context)
@@ -54,29 +54,51 @@ def product_detail_view(request, product_id):
         #     })
 
 
-# def create_product_view(request):
-#     if request.method == 'GET':
-#         context = {
-#             'form': ProductsCreateForm
-#         }
-#         return render(request, 'products/create.html', context=context)
+def create_product_view(request):
+    if request.method == 'GET':
+        context = {
+            'form': ProductsCreateForm
+        }
+        return render(request, 'products/create.html', context=context)
+#
+    if request.method == 'POST':
+        form = ProductsCreateForm(data=request.POST)
+
+        if form.is_valid():
+#             # print(form.cleaned_data.get('commentable')==False)
+            Product.objects.create(
+                title=form.cleaned_data.get('title'),
+                description=form.cleaned_data.get('description'),
+                rate=form.cleaned_data.get('rate'),
+                # commentable=form.cleaned_data.get('commentable')
+            )
+            return redirect('/products')
+#
+# #
+        return render(request, 'products/create.html', context={
+            'form': form
+            })
 #
 #     if request.method == 'POST':
-#         form = ProductsCreateForm(data=request.POST)
+#         data = request.POST
 #
-#         if form.is_valid():
-#             # print(form.cleaned_data.get('commentable')==False)
+#         """validation"""
+#         errors = {}
+#
+#         if len(data['title']) < 1:
+#             errors['title_errors'] = 'ploho'
+#
+#         if len(data['description']) < 1:
+#             errors['description_errors'] = 'ploho'
+#
+#         if len(errors.keys()) < 1:
 #             Product.objects.create(
-#                 title=form.cleaned_data.get('title'),
-#                 description=form.cleaned_data.get('description'),
-#                 rate=form.cleaned_data.get('rate'),
-#                 # commentable=form.cleaned_data.get('commentable')
+#                 title=data['title'],
+#                 description=data['description'],
+#                 rate=data['rate']
+#                     # commentable=form.cleaned_data.get('commentable')
 #             )
-#             return redirect('/products')
+#             return redirect('/Products/')
 #
-#
-#         return render(request, 'products/create.html', context={
-#             'form': form
-#             })
-
+#         return render(request, 'products/create.html', context={'errors': errors})
 
