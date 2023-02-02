@@ -19,9 +19,6 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">PYTHON
-{#            <img#}
-{#                    style="width: 150px"#}
-{#                    src="{% static 'WIN_20221029_00_22_04_Pro.jpg' %}" alt="">#}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -32,14 +29,26 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/products">products</a>
+          <a class="nav-link" href="/products">Products</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/products/create">create</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
+         {% if user.is_anonymous %}
+            <li class="nav-item">
+                <a class="nav-link" href="/users/login/">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="/users/register/">Register</a>
+            </li>
+         {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/products/create">Create</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/logout">Logout</a>
+            </li>
+         {% endif %}
+          <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+          </li>
       </ul>
     </div>
   </div>
