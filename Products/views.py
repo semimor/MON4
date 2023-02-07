@@ -24,7 +24,9 @@ def products_view(request):
             )  |  Product.objects.filter(
                 title__icontains=search
             )
-        """max page"""
+        """
+        max page
+        """
         max_page = products.__len__() / PAGINATION_LIMIT
         if round(max_page) < max_page:
             max_page = round(max_page) + 1
@@ -33,7 +35,9 @@ def products_view(request):
 
         print(max_page)
 
-        """slice products by stranica"""
+        """
+        slice products by stranica
+        """
         products = products[PAGINATION_LIMIT * (page-1):PAGINATION_LIMIT*page]
 
         # max_page = products.__len__() / PAGINATION_LIMIT
